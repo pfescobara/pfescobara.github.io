@@ -220,16 +220,25 @@ Pablo :)
         @keyframes fadeInFlame { from{opacity:0;} to{opacity:1;} }
         @keyframes realFire { 0%{transform: scale(1) rotate(-2deg);} 100%{transform: scale(1.1) rotate(2deg);} }
 
-        /* --- TEXTO PRINCIPAL --- */
+        /* --- TEXTO PRINCIPAL CENTRADO --- */
+        .title-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+        }
+
         .title-birthday {
             font-size: clamp(1.8rem, 8vw, 3.5rem);
             color: var(--pink-dark);
             font-weight: 700;
-            margin: 0;
+            margin: 0 auto;
             overflow: hidden;
             white-space: nowrap;
             width: 0;
             animation: typing-fluid 3s ease-out 2s forwards;
+            text-align: center;
         }
         @keyframes typing-fluid { from{width:0;} to{width: 100%;} }
         
@@ -238,11 +247,12 @@ Pablo :)
             color: #c2185b;
             margin-top: 5px;
             opacity: 0;
+            text-align: center;
             animation: fadeIn 2s 4.5s forwards;
         }
         @keyframes fadeIn { to{opacity:1;} }
 
-        /* --- SOBRE Y CARTA (MODIFICADO) --- */
+        /* --- SOBRE Y CARTA --- */
         .envelope-wrapper {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
             display: none; z-index: 3000; width: min(350px, 90vw);
@@ -260,7 +270,6 @@ Pablo :)
             position: absolute; bottom: 5px; left: 5%; width: 90%; height: 80%;
             background: white; padding: 25px; box-sizing: border-box;
             overflow-y: auto; transition: .8s; z-index: 1; border-radius: 8px;
-            /* Mejora de la fuente dentro de la carta */
             line-height: 1.6;
         }
 
@@ -270,15 +279,14 @@ Pablo :)
             box-shadow: 0 0 100px rgba(0,0,0,0.5);
         }
 
-        /* --- TAMAÑO DE TEXTO DE LA CARTA (MODIFICADO) --- */
         #texto {
-            font-size: clamp(1.3rem, 5vw, 1.8rem); /* Aumentado sustancialmente */
+            font-size: clamp(1.3rem, 5vw, 1.8rem);
             color: #4a1a37;
             white-space: pre-wrap;
         }
 
         .carta h3 {
-            font-size: clamp(1.6rem, 6vw, 2.2rem); /* Título de la carta más grande */
+            font-size: clamp(1.6rem, 6vw, 2.2rem);
             margin-bottom: 15px;
         }
 
@@ -459,8 +467,6 @@ function createHearts(){
 </script>
 </body>
 </html>
-
-
 
 
 
