@@ -90,26 +90,26 @@ Pablo :)
             --white: #ffffff;
             --pink-light: #f8c8dc;
         }
+        
+        * { box-sizing: border-box; }
+
         body {
             margin: 0;
             height: 100vh;
+            height: 100dvh; /* Altura dinámica para móviles */
             background: linear-gradient(135deg, #f8c8dc, #ff9ecf);
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             overflow: hidden;
             font-family: 'Dancing Script', cursive;
-            position: relative;
         }
+
         #overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background: #f8c8dc;
-            z-index: 1000;
+            z-index: 2000;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -117,55 +117,44 @@ Pablo :)
             text-align: center;
             transition: opacity 1s ease;
         }
-        .typing-start {
-            font-size: clamp(2rem, 8vw, 3rem);
-            color: #6d214f;
-            margin-bottom: 10px;
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 3px solid #6d214f;
-            width: 0;
-            margin: 0 auto;
-            animation: typing-intro 2s steps(20) forwards, blink 0.7s infinite;
-        }
-        @keyframes typing-intro {
-            from { width: 0; }
-            to { width: 100%; }
-        }
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
 
+        /* --- CENTRADO TOTAL --- */
         #main-content {
-            display: none;
+            display: none; /* Se activa con JS */
             flex-direction: column;
             align-items: center;
-            justify-content: center; /* Centra verticalmente el contenido */
+            justify-content: center;
             width: 100%;
-            height: 100vh;
-            position: relative;
+            height: 100%;
+            padding: 20px;
         }
 
-        /* --- Partículas --- */
-        .sparkle, .confetti, .heart { position: fixed; pointer-events: none; }
-        .sparkle { background: white; border-radius: 50%; opacity: 0; animation: twinkle var(--duration) infinite; }
-        @keyframes twinkle { 0%,100%{opacity:0;transform:scale(.5);} 50%{opacity:.8;transform:scale(1.2);} }
-        
-        .confetti { width: 10px; height: 10px; top: -10vh; opacity: .7; animation: fall linear infinite; z-index: 999; }
-        .heart { font-size: 18px; color: #f5b5cc; opacity: .9; top: -10vh; animation: fall linear infinite; z-index: 998; }
-        @keyframes fall { to { transform: translateY(120vh) rotate(720deg); } }
-
-        /* --- CONTENEDOR DEL PASTEL REFORMADO --- */
-        .cake-container {
-            position: relative;
-            width: 250px;
-            height: 280px; /* Espacio para pastel + vela + llama */
+        /* Contenedor que agrupa pastel + texto para que bajen/suban juntos */
+        .center-group {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-end; /* Apila desde abajo */
-            z-index: 2;
-            transform: scale(0.9); /* Ajuste opcional para pantallas muy pequeñas */
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        /* Si la pantalla es pequeña o está en horizontal (poca altura) */
+        @media (max-height: 600px) {
+            .center-group {
+                transform: scale(0.7); /* Achica todo para que quepa */
+            }
+        }
+
+        /* --- CONTENEDOR DEL PASTEL --- */
+        .cake-container {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            margin-bottom: 20px;
         }
 
         .cake-base, .cake-middle, .cake-top, .icing, .candle, .flame {
@@ -180,12 +169,12 @@ Pablo :)
         }
 
         .cake-base { width: 200px; height: 80px; background: #ffb6c1; border-radius: 10px; bottom: 0; animation-delay: .2s; }
-        .cake-middle { width: 160px; height: 70px; background: #ff9ecf; border-radius: 10px; bottom: 60px; animation-delay: .5s; }
-        .cake-top { width: 120px; height: 60px; background: #ff85c1; border-radius: 10px; bottom: 110px; animation-delay: .8s; }
+        .cake-middle { width: 160px; height: 70px; background: #ff9ecf; border-radius: 10px; bottom: 50px; animation-delay: .5s; }
+        .cake-top { width: 120px; height: 60px; background: #ff85c1; border-radius: 10px; bottom: 100px; animation-delay: .8s; }
         
         .icing { 
             width: 130px; height: 25px; background: white; border-radius: 20px; 
-            bottom: 155px; z-index: 3; animation-delay: 1.1s; 
+            bottom: 145px; z-index: 3; animation-delay: 1.1s; 
         }
         .icing::after {
             content: ""; position: absolute; top: 12px; left: 5px; width: 20px; height: 20px;
@@ -196,14 +185,14 @@ Pablo :)
         .candle {
             width: 12px; height: 40px;
             background: repeating-linear-gradient(45deg, #fff, #fff 5px, #e91e63 5px, #e91e63 10px);
-            bottom: 180px; border-radius: 3px; animation-delay: 1.4s; z-index: 4;
+            bottom: 170px; border-radius: 3px; animation-delay: 1.4s; z-index: 4;
         }
 
         .flame {
             width: 20px; height: 35px;
             background: radial-gradient(circle at 50% 80%, #fff 10%, #ffeb3b 40%, #ff9800 70%, #ff5722 100%);
             border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
-            bottom: 220px; cursor: pointer; z-index: 5;
+            bottom: 210px; cursor: pointer; z-index: 5;
             box-shadow: 0 0 20px rgba(255,165,0,.6);
             animation: fadeInFlame .5s 2.2s forwards, realFire .1s infinite alternate 2.7s;
         }
@@ -211,29 +200,27 @@ Pablo :)
         @keyframes fadeInFlame { from{opacity:0;} to{opacity:1;} }
         @keyframes realFire { 0%{transform: scale(1) rotate(-2deg);} 100%{transform: scale(1.1) rotate(2deg);} }
 
-        /* --- TEXTO DEBAJO DEL PASTEL --- */
+        /* --- TEXTO --- */
         .title-container {
             text-align: center;
-            margin-top: 30px;
             width: 100%;
-            padding: 0 20px;
-            box-sizing: border-box;
         }
         .title-birthday {
-            font-size: clamp(1.8rem, 7vw, 3rem);
+            font-size: clamp(1.8rem, 8vw, 3.5rem);
             color: var(--pink-dark);
-            margin: 0 auto;
-            white-space: nowrap;
+            font-weight: 700;
+            margin: 0;
             overflow: hidden;
+            white-space: nowrap;
             width: 0;
             animation: typing-fluid 3s ease-out 2s forwards;
         }
         @keyframes typing-fluid { from{width:0;} to{width: 100%;} }
         
         .hint-text {
-            font-size: clamp(0.9rem, 3.5vw, 1.3rem);
+            font-size: clamp(0.9rem, 4vw, 1.3rem);
             color: #c2185b;
-            margin-top: 10px;
+            margin-top: 5px;
             opacity: 0;
             animation: fadeIn 2s 4.5s forwards;
         }
@@ -242,17 +229,15 @@ Pablo :)
         /* --- SOBRE Y CARTA --- */
         .envelope-wrapper {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
-            display: none; z-index: 1100; width: min(300px, 90vw);
+            display: none; z-index: 3000; width: min(350px, 90vw);
         }
-        .envelope { width: 100%; height: 200px; background: #fff; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,.2); }
+        .envelope { width: 100%; height: 220px; background: #fff; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,.2); }
         .envelope-flap {
-            position: absolute; top: 0; z-index: 2;
-            border-left: 150px solid transparent; border-right: 150px solid transparent;
-            border-top: 100px solid #f8c8dc; transform-origin: top; transition: .5s;
-        }
-        /* Ajuste flap para móvil */
-        @media (max-width: 480px) {
-            .envelope-flap { border-left-width: 45vw; border-right-width: 45vw; border-top-width: 30vw; }
+            position: absolute; top: 0; z-index: 2; width: 0; height: 0;
+            border-left: min(175px, 45vw) solid transparent;
+            border-right: min(175px, 45vw) solid transparent;
+            border-top: 110px solid #f8c8dc; 
+            transform-origin: top; transition: .5s;
         }
         .open-flap { transform: rotateX(180deg); }
         .carta {
@@ -262,10 +247,28 @@ Pablo :)
         }
         .carta.deploy {
             position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 90vw; height: 80vh; max-width: 400px; z-index: 1200; box-shadow: 0 0 100px rgba(0,0,0,0.5);
+            width: 90vw; height: 85vh; max-width: 450px; z-index: 3100; box-shadow: 0 0 100px rgba(0,0,0,0.5);
         }
-        #texto { white-space: pre-line; font-size: 1.1rem; }
-        #contenedor-foto img { max-width: 100%; border-radius: 8px; border: 4px solid white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        
+        /* Partículas */
+        .sparkle, .confetti, .heart { position: fixed; pointer-events: none; }
+        .sparkle { background: white; border-radius: 50%; opacity: 0; animation: twinkle var(--duration) infinite; }
+        @keyframes twinkle { 0%,100%{opacity:0;transform:scale(.5);} 50%{opacity:.8;transform:scale(1.2);} }
+        .confetti { width: 10px; height: 10px; top: -10vh; animation: fall linear infinite; }
+        .heart { font-size: 18px; top: -10vh; animation: fall linear infinite; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
+
+        .typing-start {
+            font-size: clamp(2rem, 10vw, 4rem);
+            color: #6d214f;
+            border-right: 3px solid #6d214f;
+            white-space: nowrap;
+            overflow: hidden;
+            margin: 0 auto 15px;
+            animation: typing-intro 2s steps(20) forwards, blink 0.7s infinite;
+        }
+        @keyframes typing-intro { from { width: 0; } to { width: 100%; } }
+        @keyframes blink { 50% { border-color: transparent; } }
     </style>
 </head>
 <body>
@@ -273,7 +276,7 @@ Pablo :)
 <div id="overlay" onclick="iniciarExperiencia()">
     <div>
         <h1 class="typing-start">Para Gaby... ✨</h1>
-        <p style="font-size: 1.1rem;">(Toca la pantalla para empezar)</p>
+        <p style="font-size: 1.2rem; color: #6d214f;">(Toca la pantalla para empezar)</p>
     </div>
 </div>
 
@@ -284,18 +287,20 @@ Pablo :)
     <div id="hearts-container"></div>
     <div id="confetti-container"></div>
     
-    <div class="cake-container">
-        <div class="cake-base"></div>
-        <div class="cake-middle"></div>
-        <div class="cake-top"></div>
-        <div class="icing"></div>
-        <div class="candle"></div>
-        <div class="flame" onclick="abrirCarta()"></div>
-    </div>
+    <div class="center-group">
+        <div class="cake-container">
+            <div class="cake-base"></div>
+            <div class="cake-middle"></div>
+            <div class="cake-top"></div>
+            <div class="icing"></div>
+            <div class="candle"></div>
+            <div class="flame" onclick="abrirCarta()"></div>
+        </div>
 
-    <div class="title-container">
-        <div class="title-birthday">Happy Birthday Gaby!</div>
-        <div class="hint-text">(La llama de la vela guarda un secreto...)</div>
+        <div class="title-container">
+            <h1 class="title-birthday">Happy Birthday Gaby!</h1>
+            <p class="hint-text">(La llama de la vela guarda un secreto...)</p>
+        </div>
     </div>
 
     <div class="envelope-wrapper" id="wrapper">
@@ -304,16 +309,17 @@ Pablo :)
             <div class="carta" id="carta" onclick="cerrarCarta(event)">
                 <h3 style="color:#c2185b;text-align:center; margin-top:0;">Para ti, Gaby 💖</h3>
                 <div id="texto"></div>
-                <div id="contenedor-foto">
-                    <img src="imagenCartaGaby.png" alt="Para Gaby">
+                <div id="contenedor-foto" style="display:none; margin-top:15px; opacity:0; transition: 1s;">
+                    <img src="imagenCartaGaby.png" alt="Para Gaby" style="width:100%; border-radius:8px;">
                 </div>
-                <p style="text-align:center; font-size:0.9rem; color:#888; margin-top:30px;">(Haz clic para cerrar)</p>
+                <p style="text-align:center; font-size:0.9rem; color:#888; margin-top:30px;">(Haz clic aquí para cerrar)</p>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+// El resto de tu lógica JS se mantiene igual, solo ajustamos la función de desplegar
 const mensaje = `Hola, Gaby.
 Quería desearte un muy feliz cumpleaños. Eres una persona increíble y espero que este pequeño detalle te haga sonreír. 
 De verdad espero que este año te traiga cosas increíbles, que cumplas metas, que rías muchísimo y que nunca pierdas esa luz tan tuya que hace que todo se sienta más bonito.
@@ -328,7 +334,7 @@ function iniciarExperiencia() {
     const overlay = document.getElementById("overlay");
     const mainContent = document.getElementById("main-content");
     musica.volume = 0.4;
-    musica.play().catch(e => console.log("Audio play blocked"));
+    musica.play().catch(e => console.log("Audio block"));
     overlay.style.opacity = "0";
     setTimeout(() => {
         overlay.style.display = "none";
@@ -372,14 +378,16 @@ function escribirTexto() {
         setTimeout(escribirTexto, speed);
     } else {
         yaSeEscribio = true;
-        document.getElementById("contenedor-foto").style.display = "block";
+        const foto = document.getElementById("contenedor-foto");
+        foto.style.display = "block";
         setTimeout(() => { 
-            document.getElementById("contenedor-foto").style.opacity = "1";
+            foto.style.opacity = "1";
             cartaContenedor.scrollTop = cartaContenedor.scrollHeight;
         }, 100);
     }
 }
 
+// Generadores de partículas (sin cambios)
 function createSparkles(){
     const c=document.getElementById('sparkles-container');
     for(let i=0;i<30;i++){
@@ -412,6 +420,7 @@ function createHearts(){
         const h=document.createElement('div');
         h.className='heart';
         h.innerHTML="❤";
+        h.style.color="#f5b5cc";
         h.style.left=Math.random()*100+'vw';
         h.style.animationDuration=(Math.random()*5+5)+'s';
         c.appendChild(h);
@@ -420,6 +429,7 @@ function createHearts(){
 </script>
 </body>
 </html>
+
 
 
 
