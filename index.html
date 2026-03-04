@@ -81,393 +81,379 @@ Pablo :)
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Birthday Gaby</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastel de Cumpleaños</title>
     <style>
-        :root {
-            --pink-dark: #6d214f;
-            --white: #ffffff;
-            --pink-light: #f8c8dc;
+        /* --- ESTILOS GENERALES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
-        * { box-sizing: border-box; }
 
         body {
-            margin: 0;
-            height: 100vh;
-            height: 100dvh;
-            background: linear-gradient(135deg, #f8c8dc, #ff9ecf);
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #fff9f9 0%, #ffe4e9 100%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            font-family: 'Dancing Script', cursive;
         }
 
-        #overlay {
-            position: fixed;
-            inset: 0;
-            background: #f8c8dc;
-            z-index: 2000;
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- SECCIÓN DEL PASTEL --- */
+        .cake-section {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            text-align: center;
-            transition: opacity 1s ease;
-        }
-
-        #main-content {
-            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             width: 100%;
-            height: 100%;
-            padding: 20px;
-            position: relative;
+            margin-bottom: 30px;
         }
 
-        .center-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s ease;
-            max-width: 90vw;
-            max-height: 90vh;
-            transform-origin: center;
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-height: 500px) {
-            .center-group { transform: scale(0.65); }
-            .cake-container { margin-bottom: 5px; }
-            .title-birthday { font-size: clamp(1.5rem, 5vw, 2.5rem); }
-        }
-        
-        @media (min-height: 501px) and (max-height: 700px) {
-            .center-group { transform: scale(0.8); }
-            .cake-container { margin-bottom: 10px; }
-        }
-        
-        @media (max-width: 400px) and (min-height: 600px) {
-            .center-group { transform: scale(0.85); }
-            .cake-container { margin-bottom: 15px; }
-        }
-        
-        @media (min-width: 600px) and (min-height: 800px) {
-            .center-group { transform: scale(1); }
-        }
-        
-        @media (min-width: 1200px) and (min-height: 800px) {
-            .center-group { transform: scale(1.2); }
-        }
-
-        /* --- PASTEL --- */
-        .cake-container {
-            position: relative;
-            width: 250px;
-            height: 250px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            margin-bottom: 20px;
-        }
-
-        .cake-base, .cake-middle, .cake-top, .icing, .candle, .flame {
-            animation: dropCake 1s cubic-bezier(0.17,0.67,0.83,0.67) forwards;
-            opacity: 0;
-            position: absolute;
-        }
-
-        @keyframes dropCake {
-            0% { transform: translateY(-500px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        .cake-base { width: 200px; height: 80px; background: #ffb6c1; border-radius: 10px; bottom: 0; animation-delay: .2s; }
-        .cake-middle { width: 160px; height: 70px; background: #ff9ecf; border-radius: 10px; bottom: 50px; animation-delay: .5s; }
-        .cake-top { width: 120px; height: 60px; background: #ff85c1; border-radius: 10px; bottom: 100px; animation-delay: .8s; }
-        
-        .icing { 
-            width: 130px; height: 25px; background: white; border-radius: 20px; 
-            bottom: 145px; z-index: 3; animation-delay: 1.1s; 
-        }
-        .icing::after {
-            content: ""; position: absolute; top: 12px; left: 5px; width: 20px; height: 20px;
-            background: white; border-radius: 50%;
-            box-shadow: 25px 0 white, 50px 0 white, 75px 0 white, 100px 0 white;
-        }
-
-        .candle {
-            width: 12px; height: 40px;
-            background: repeating-linear-gradient(45deg, #fff, #fff 5px, #e91e63 5px, #e91e63 10px);
-            bottom: 170px; border-radius: 3px; animation-delay: 1.4s; z-index: 4;
-        }
-
-        .flame {
-            width: 20px; height: 35px;
-            background: radial-gradient(circle at 50% 80%, #fff 10%, #ffeb3b 40%, #ff9800 70%, #ff5722 100%);
-            border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
-            bottom: 210px; cursor: pointer; z-index: 5;
-            box-shadow: 0 0 20px rgba(255,165,0,.6);
-            animation: fadeInFlame .5s 2.2s forwards, realFire .1s infinite alternate 2.7s;
-        }
-
-        @keyframes fadeInFlame { from{opacity:0;} to{opacity:1;} }
-        @keyframes realFire { 0%{transform: scale(1) rotate(-2deg);} 100%{transform: scale(1.1) rotate(2deg);} }
-
-        /* --- TEXTO PRINCIPAL CENTRADO --- */
+        /* --- TEXTO PRINCIPAL CORREGIDO Y CENTRADO --- */
         .title-container {
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             width: 100%;
+            margin: 0 auto 30px;
         }
 
         .title-birthday {
             font-size: clamp(1.8rem, 8vw, 3.5rem);
-            color: var(--pink-dark);
+            color: #d44e6c;
             font-weight: 700;
             margin: 0 auto;
             overflow: hidden;
             white-space: nowrap;
             width: 0;
-            animation: typing-fluid 3s ease-out 2s forwards;
+            animation: typing-fluid 3s ease-out 0.5s forwards;
+            text-align: center;
+            display: block;
+        }
+
+        @keyframes typing-fluid { 
+            from { width: 0; } 
+            to { width: 100%; } 
+        }
+
+        /* --- ESTILOS DEL PASTEL --- */
+        .cake-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .cake {
+            position: relative;
+            width: 300px;
+            height: 250px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cake:hover {
+            transform: scale(1.05);
+        }
+
+        /* Base del pastel */
+        .cake-base {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(145deg, #f8b3b3 0%, #f28b8b 100%);
+            border-radius: 20px 20px 10px 10px;
+            box-shadow: 0 10px 0 #b45b5b, 0 15px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Capa media del pastel */
+        .cake-middle {
+            position: absolute;
+            bottom: 100px;
+            width: 85%;
+            left: 7.5%;
+            height: 80px;
+            background: linear-gradient(145deg, #fad0d0 0%, #f5b3b3 100%);
+            border-radius: 15px 15px 5px 5px;
+            box-shadow: 0 8px 0 #b45b5b, 0 10px 15px rgba(0,0,0,0.15);
+        }
+
+        /* Capa superior del pastel */
+        .cake-top {
+            position: absolute;
+            bottom: 160px;
+            width: 70%;
+            left: 15%;
+            height: 60px;
+            background: linear-gradient(145deg, #ffe5e5 0%, #ffcccc 100%);
+            border-radius: 12px 12px 5px 5px;
+            box-shadow: 0 6px 0 #b45b5b, 0 8px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Cobertura de crema */
+        .icing {
+            position: absolute;
+            top: -10px;
+            width: 100%;
+            height: 15px;
+            background: #fff0f0;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Velas */
+        .candle {
+            position: absolute;
+            bottom: 210px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 60px;
+            background: linear-gradient(135deg, #ffd966 0%, #ffbf00 100%);
+            border-radius: 5px;
+            box-shadow: 0 5px 0 #b38f00, 0 8px 10px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+
+        .flame {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 25px;
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 50%, #ff4500 100%);
+            border-radius: 50% 50% 30% 30%;
+            animation: flicker 0.5s infinite alternate;
+            box-shadow: 0 0 15px #ff8c00;
+        }
+
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1); opacity: 0.9; }
+            100% { transform: translateX(-50%) scale(1.1); opacity: 1; }
+        }
+
+        /* Decoraciones */
+        .sprinkles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10px 10px, #ff69b4 2px, transparent 2px),
+                        radial-gradient(circle at 30px 20px, #ff1493 2px, transparent 2px),
+                        radial-gradient(circle at 50px 15px, #ffb6c1 2px, transparent 2px);
+            background-size: 40px 40px;
+            opacity: 0.6;
+            border-radius: 10px;
+        }
+
+        /* --- TEXTOS DEBAJO DEL PASTEL COMPLETAMENTE CENTRADOS --- */
+        .textos-debajo-pastel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin: 40px auto 20px;
+            padding: 0 15px;
             text-align: center;
         }
-        @keyframes typing-fluid { from{width:0;} to{width: 100%;} }
-        
-        .hint-text {
-            font-size: clamp(0.9rem, 4vw, 1.3rem);
+
+        .texto-bienvenida {
+            font-size: clamp(1.3rem, 5vw, 2.2rem);
             color: #c2185b;
-            margin-top: 5px;
+            font-weight: 700;
+            margin: 8px 0;
+            text-align: center;
+            width: 100%;
+            animation: fadeInUp 1.5s ease-out forwards;
+            opacity: 0;
+            animation-delay: 1s;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .texto-felicitacion {
+            font-size: clamp(1.2rem, 4.5vw, 2rem);
+            color: #8b3a5c;
+            font-weight: 600;
+            margin: 8px 0;
+            text-align: center;
+            width: 100%;
+            animation: fadeInUp 1.5s ease-out forwards;
+            opacity: 0;
+            animation-delay: 1.8s;
+        }
+
+        .texto-mensaje {
+            font-size: clamp(1.1rem, 4vw, 1.6rem);
+            color: #ad4d6b;
+            font-style: italic;
+            margin: 8px 0;
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            line-height: 1.6;
+            animation: fadeInUp 1.5s ease-out forwards;
+            opacity: 0;
+            animation-delay: 2.5s;
+        }
+
+        .hint-text {
+            font-size: clamp(1rem, 4vw, 1.3rem);
+            color: #c2185b;
+            margin: 20px 0 5px;
             opacity: 0;
             text-align: center;
-            animation: fadeIn 2s 4.5s forwards;
-        }
-        @keyframes fadeIn { to{opacity:1;} }
-
-        /* --- SOBRE Y CARTA --- */
-        .envelope-wrapper {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
-            display: none; z-index: 3000; width: min(350px, 90vw);
-        }
-        .envelope { width: 100%; height: 220px; background: #fff; position: relative; box-shadow: 0 10px 40px rgba(0,0,0,.2); }
-        .envelope-flap {
-            position: absolute; top: 0; z-index: 2; width: 0; height: 0;
-            border-left: min(175px, 45vw) solid transparent;
-            border-right: min(175px, 45vw) solid transparent;
-            border-top: 110px solid #f8c8dc; transform-origin: top; transition: .5s;
-        }
-        .open-flap { transform: rotateX(180deg); }
-
-        .carta {
-            position: absolute; bottom: 5px; left: 5%; width: 90%; height: 80%;
-            background: white; padding: 25px; box-sizing: border-box;
-            overflow-y: auto; transition: .8s; z-index: 1; border-radius: 8px;
-            line-height: 1.6;
+            width: 100%;
+            animation: fadeIn 2s 4s forwards;
+            font-weight: 500;
+            background: rgba(255,255,255,0.5);
+            padding: 8px 20px;
+            border-radius: 30px;
+            display: inline-block;
         }
 
-        .carta.deploy {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 90vw; height: 85vh; max-width: 500px; z-index: 3100;
-            box-shadow: 0 0 100px rgba(0,0,0,0.5);
+        /* --- ANIMACIONES --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        #texto {
-            font-size: clamp(1.3rem, 5vw, 1.8rem);
-            color: #4a1a37;
-            white-space: pre-wrap;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .carta h3 {
-            font-size: clamp(1.6rem, 6vw, 2.2rem);
-            margin-bottom: 15px;
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .textos-debajo-pastel {
+                margin: 30px auto 15px;
+                padding: 0 10px;
+            }
+            
+            .texto-bienvenida,
+            .texto-felicitacion,
+            .texto-mensaje {
+                margin: 5px 0;
+            }
+            
+            .cake {
+                width: 250px;
+                height: 220px;
+            }
         }
 
-        /* Partículas */
-        .sparkle, .confetti, .heart { position: fixed; pointer-events: none; }
-        .sparkle { background: white; border-radius: 50%; opacity: 0; animation: twinkle var(--duration) infinite; }
-        @keyframes twinkle { 0%,100%{opacity:0;transform:scale(.5);} 50%{opacity:.8;transform:scale(1.2);} }
-        .confetti { width: 10px; height: 10px; top: -10vh; animation: fall linear infinite; }
-        .heart { font-size: 18px; top: -10vh; animation: fall linear infinite; }
-        @keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
-
-        .typing-start {
-            font-size: clamp(2rem, 10vw, 4rem);
-            color: #6d214f;
-            border-right: 3px solid #6d214f;
-            white-space: nowrap;
-            overflow: hidden;
-            margin: 0 auto 15px;
-            animation: typing-intro 2s steps(20) forwards, blink 0.7s infinite;
+        @media (max-width: 480px) {
+            .title-birthday {
+                font-size: clamp(1.5rem, 6vw, 2rem);
+            }
+            
+            .cake {
+                width: 220px;
+                height: 200px;
+            }
+            
+            .hint-text {
+                padding: 6px 15px;
+            }
         }
-        @keyframes typing-intro { from { width: 0; } to { width: 100%; } }
-        @keyframes blink { 50% { border-color: transparent; } }
+
+        /* --- PARA ASEGURAR QUE TODO TEXTO ESTÉ CENTRADO --- */
+        .textos-debajo-pastel p,
+        .textos-debajo-pastel h1,
+        .textos-debajo-pastel h2,
+        .textos-debajo-pastel h3,
+        .textos-debajo-pastel span {
+            text-align: center !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
     </style>
 </head>
 <body>
-
-<div id="overlay" onclick="iniciarExperiencia()">
-    <div>
-        <h1 class="typing-start">Para Gaby... ✨</h1>
-        <p style="font-size: 1.2rem; color: #6d214f;">(Toca la pantalla para empezar)</p>
-    </div>
-</div>
-
-<audio id="musica" src="Morat, Feid - Salir Con Vida (Official Video).mp3" loop></audio>
-
-<div id="main-content">
-    <div id="sparkles-container"></div>
-    <div id="hearts-container"></div>
-    <div id="confetti-container"></div>
-    
-    <div class="center-group">
-        <div class="cake-container">
-            <div class="cake-base"></div>
-            <div class="cake-middle"></div>
-            <div class="cake-top"></div>
-            <div class="icing"></div>
-            <div class="candle"></div>
-            <div class="flame" onclick="abrirCarta()"></div>
-        </div>
-
-        <div class="title-container">
-            <h1 class="title-birthday">Happy Birthday Gaby!</h1>
-            <p class="hint-text">(La llama de la vela guarda un secreto...)</p>
-        </div>
-    </div>
-
-    <div class="envelope-wrapper" id="wrapper">
-        <div class="envelope">
-            <div class="envelope-flap" id="flap"></div>
-            <div class="carta" id="carta" onclick="cerrarCarta(event)">
-                <h3 style="color:#c2185b;text-align:center; margin-top:0;">Para ti, Gaby 💖</h3>
-                <div id="texto"></div>
-                <div id="contenedor-foto" style="display:none; margin-top:15px; opacity:0; transition: 1s;">
-                    <img src="imagenCartaGaby.png" alt="Para Gaby" style="width:100%; border-radius:8px;">
+    <div class="container">
+        <!-- Sección del pastel -->
+        <div class="cake-section">
+            <!-- Contenedor del título -->
+            <div class="title-container">
+                <h1 class="title-birthday">¡Feliz Cumpleaños!</h1>
+            </div>
+            
+            <!-- Contenedor del pastel -->
+            <div class="cake-container">
+                <div class="cake" onclick="alert('¡Sorpresa! 🎉 ¡Feliz Cumpleaños!')">
+                    <!-- Base del pastel -->
+                    <div class="cake-base">
+                        <div class="icing"></div>
+                        <div class="sprinkles"></div>
+                    </div>
+                    
+                    <!-- Capa media -->
+                    <div class="cake-middle">
+                        <div class="icing"></div>
+                        <div class="sprinkles"></div>
+                    </div>
+                    
+                    <!-- Capa superior -->
+                    <div class="cake-top">
+                        <div class="icing"></div>
+                        <div class="sprinkles"></div>
+                    </div>
+                    
+                    <!-- Vela -->
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
                 </div>
-                <p style="text-align:center; font-size:1.1rem; color:#888; margin-top:30px; font-weight: bold;">(Haz clic aquí para cerrar)</p>
+            </div>
+            
+            <!-- TEXTOS DEBAJO DEL PASTEL - COMPLETAMENTE CENTRADOS -->
+            <div class="textos-debajo-pastel">
+                <p class="texto-bienvenida">¡Hoy es un día muy especial!</p>
+                <h2 class="texto-felicitacion">Que todos tus sueños se hagan realidad</h2>
+                <p class="texto-mensaje">Disfruta cada momento de este nuevo año de vida.<br>Te deseamos lo mejor en este día tan importante.</p>
+                <span class="hint-text">✨ ¡Haz clic en el pastel para una sorpresa! ✨</span>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-const mensaje = `Hola, Gaby.
-Quería desearte un muy feliz cumpleaños. Eres una persona increíble y espero que este pequeño detalle te haga sonreír. 
-De verdad espero que este año te traiga cosas increíbles, que cumplas tus metas, que rías muchísimo y que nunca pierdas esa luz tan tuya que hace que todo se sienta más bonito. Que cada día encuentres motivos nuevos para sonreír y sentirte orgullosa de quién eres, y que tu hermosa sonrisa siga siendo el reflejo de toda esa alegría que llevas dentro. 
-Gracias por ser como eres aunque no sé cómo lo haces, pero siempre logras alegrarme el día. Tienes una forma muy especial de estar en la vida, y eso es algo que vale muchísimo. 
-Disfruta cada momento, celebra a lo grande y guarda recuerdos que te hagan sonreír incluso dentro de muchos años. 
-Con mucho cariño, Pablo :) `;
+    <!-- Pequeño script para interacción -->
+    <script>
+        // Animación adicional al hacer clic
+        const cake = document.querySelector('.cake');
+        cake.addEventListener('click', function() {
+            this.style.animation = 'bounce 0.5s ease';
+            setTimeout(() => {
+                this.style.animation = '';
+            }, 500);
+        });
 
-let yaSeEscribio = false;
-
-function iniciarExperiencia() {
-    const musica = document.getElementById("musica");
-    const overlay = document.getElementById("overlay");
-    const mainContent = document.getElementById("main-content");
-    musica.volume = 0.4;
-    musica.play().catch(e => console.log("Audio block"));
-    overlay.style.opacity = "0";
-    setTimeout(() => {
-        overlay.style.display = "none";
-        mainContent.style.display = "flex";
-        createSparkles();
-        createConfetti();
-        setTimeout(createHearts, 3000);
-    }, 1000);
-}
-
-function abrirCarta() {
-    const wrapper = document.getElementById("wrapper");
-    const flap = document.getElementById("flap");
-    const carta = document.getElementById("carta");
-    wrapper.style.display = "block";
-    setTimeout(() => {
-        flap.classList.add("open-flap");
-        setTimeout(() => {
-            carta.classList.add("deploy");
-            if (!yaSeEscribio) escribirTexto();
-        }, 600);
-    }, 100);
-}
-
-function cerrarCarta(e) {
-    e.stopPropagation();
-    document.getElementById("carta").classList.remove("deploy");
-    document.getElementById("flap").classList.remove("open-flap");
-    setTimeout(() => { document.getElementById("wrapper").style.display = "none"; }, 1000);
-}
-
-let j = 0;
-function escribirTexto() {
-    const divTexto = document.getElementById("texto");
-    const cartaContenedor = document.getElementById("carta");
-    if (j < mensaje.length) {
-        divTexto.innerHTML += mensaje.charAt(j);
-        j++;
-        cartaContenedor.scrollTop = cartaContenedor.scrollHeight;
-        let speed = (mensaje.charAt(j-1) === "." || mensaje.charAt(j-1) === ",") ? 200 : 35;
-        setTimeout(escribirTexto, speed);
-    } else {
-        yaSeEscribio = true;
-        const foto = document.getElementById("contenedor-foto");
-        foto.style.display = "block";
-        setTimeout(() => { 
-            foto.style.opacity = "1";
-            cartaContenedor.scrollTop = cartaContenedor.scrollHeight;
-        }, 100);
-    }
-}
-
-function createSparkles(){
-    const c=document.getElementById('sparkles-container');
-    for(let i=0;i<30;i++){
-        const s=document.createElement('div');
-        s.className='sparkle';
-        let size=Math.random()*4+2;
-        s.style.width=size+'px'; s.style.height=size+'px';
-        s.style.left=Math.random()*100+'vw'; s.style.top=Math.random()*100+'vh';
-        s.style.setProperty('--duration',(Math.random()*3+2)+'s');
-        c.appendChild(s);
-    }
-}
-
-function createConfetti(){
-    const c=document.getElementById('confetti-container');
-    const colors=['#ff69b4','#ff1493','#ffffff','#ffd700']; 
-    for(let i=0;i<50;i++){
-        const d=document.createElement('div');
-        d.className='confetti';
-        d.style.left=Math.random()*100+'vw';
-        d.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
-        d.style.animationDuration=(Math.random()*3+2)+'s';
-        c.appendChild(d);
-    }
-}
-
-function createHearts(){
-    const c=document.getElementById('hearts-container');
-    for(let i=0;i<10;i++){
-        const h=document.createElement('div');
-        h.className='heart';
-        h.innerHTML="❤";
-        h.style.color="#f5b5cc";
-        h.style.left=Math.random()*100+'vw';
-        h.style.animationDuration=(Math.random()*5+5)+'s';
-        c.appendChild(h);
-    }
-}
-</script>
+        // Estilo para la animación de bounce
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bounce {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
-
-
-
-
