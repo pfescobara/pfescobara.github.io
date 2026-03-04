@@ -142,31 +142,7 @@ Pablo :)
             width: 100%;
             max-width: 100%;
             position: relative;
-            height: 100vh;
         }
-        
-        /* Contenedores de animaciones - CORREGIDO */
-        #sparkles-container,
-        #hearts-container,
-        #confetti-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-        
-        #hearts-container {
-            z-index: 2;
-        }
-        
-        #confetti-container {
-            z-index: 3;
-        }
-
         .sparkle {
             position: absolute;
             background: white;
@@ -179,36 +155,31 @@ Pablo :)
             0%,100%{opacity:0;transform:scale(.5);}
             50%{opacity:.8;transform:scale(1.2);}
         }
-        
+
+        /* --- CAMBIOS AQUÍ: Confeti y Corazones desde lo más alto --- */
         .confetti {
-            position: absolute;
+            position: fixed; /* Cambiado a fixed para ignorar contenedores padres */
             width: 10px; 
             height: 10px;
-            top: -20px; 
+            top: -10vh; /* Empieza un 10% arriba de la pantalla */
             opacity: .7;
             animation: fall linear infinite;
-            z-index: 3;
+            z-index: 999; /* Asegura que se vea sobre el fondo */
         }
-        
         .heart {
-            position: absolute;
+            position: fixed; /* Cambiado a fixed */
             font-size: clamp(14px, 4vw, 18px);
             color: #f5b5cc;
             opacity: .9;
-            top: -20px;
+            top: -10vh; /* Empieza arriba de la pantalla */
             animation: fall linear infinite;
-            z-index: 2;
+            z-index: 998;
         }
-        
         @keyframes fall {
-            0% {
-                transform: translateY(-20px) rotate(0deg);
-            }
-            100% { 
-                transform: translateY(110vh) rotate(720deg); 
-            }
+            to { transform: translateY(120vh) rotate(720deg); } /* Cae hasta pasar el fondo */
         }
-        
+        /* --------------------------------------------------------- */
+
         .cake-container {
             position: relative;
             width: min(300px, 80vw);
@@ -216,7 +187,7 @@ Pablo :)
             display: flex;
             flex-direction: column;
             align-items: center;
-            z-index: 10;
+            z-index: 2;
             margin-top: 20px;
             transform: scale(1);
             transform-origin: center;
@@ -263,7 +234,7 @@ Pablo :)
             border-radius: 20px; 
             position: absolute; 
             bottom: min(185px, 49vw); 
-            z-index: 13; 
+            z-index: 3; 
             animation-delay: 1.1s; 
         }
         .icing::after { 
@@ -291,7 +262,7 @@ Pablo :)
             bottom: min(210px, 56vw);
             border-radius: 3px;
             animation-delay: 1.4s;
-            z-index: 14;
+            z-index: 4;
             box-shadow: inset -2px 0 5px rgba(0,0,0,0.1);
         }
         .flame {
@@ -303,7 +274,7 @@ Pablo :)
             bottom: min(255px, 68vw);
             opacity: 0; 
             cursor: pointer; 
-            z-index: 15;
+            z-index: 5;
             box-shadow: 0 0 20px rgba(255,165,0,.6);
             animation: fadeInFlame .5s 2.2s forwards, realFire .1s infinite alternate 2.7s;
         }
@@ -318,7 +289,6 @@ Pablo :)
             width: 100%;
             padding: 0 10px;
             box-sizing: border-box;
-            z-index: 10;
         }
         .title-birthday {
             font-size: clamp(2rem, 8vw, 3.5rem); 
@@ -438,11 +408,6 @@ Pablo :)
             .cake-middle {
                 bottom: min(80px, 23vw);
             }
-            
-            /* Ajustes para animaciones en móvil */
-            .confetti, .heart {
-                animation-duration: 4s !important;
-            }
         }
         
         /* Para pantallas muy pequeñas */
@@ -469,6 +434,7 @@ Pablo :)
     <div id="sparkles-container"></div>
     <div id="hearts-container"></div>
     <div id="confetti-container"></div>
+    
     <div class="cake-container">
         <div class="cake-base"></div>
         <div class="cake-middle"></div>
@@ -503,6 +469,7 @@ Gracias por ser como eres aunque no sé cómo lo haces, pero siempre logras aleg
 Disfruta cada momento, celebra a lo grande y guarda recuerdos que te hagan sonreír incluso dentro de muchos años. 
 Con mucho cariño, Pablo :) `;
 let yaSeEscribio = false;
+
 function iniciarExperiencia() {
     const musica = document.getElementById("musica");
     const overlay = document.getElementById("overlay");
@@ -518,6 +485,7 @@ function iniciarExperiencia() {
         setTimeout(createHearts, 3000);
     }, 1000);
 }
+
 function abrirCarta() {
     const wrapper = document.getElementById("wrapper");
     const flap = document.getElementById("flap");
@@ -540,6 +508,7 @@ function abrirCarta() {
         }, 600);
     }, 100);
 }
+
 function cerrarCarta(e) {
     e.stopPropagation();
     const carta = document.getElementById("carta");
@@ -553,6 +522,7 @@ function cerrarCarta(e) {
         }, 500);
     }, 600);
 }
+
 let j = 0;
 function escribirTexto() {
     const divTexto = document.getElementById("texto");
@@ -576,59 +546,56 @@ function escribirTexto() {
         }, 100);
     }
 }
+
 function createSparkles(){
-    const container = document.getElementById('sparkles-container');
-    container.innerHTML = ''; // Limpiar existentes
+    const c=document.getElementById('sparkles-container');
     for(let i=0;i<40;i++){
         const s=document.createElement('div');
         s.className='sparkle';
         let size=Math.random()*4+2;
-        s.style.width=size+'px'; 
-        s.style.height=size+'px';
-        s.style.left=Math.random()*100+'%'; // Cambiado a % para mejor responsividad
-        s.style.top=Math.random()*100+'%';
+        s.style.width=size+'px'; s.style.height=size+'px';
+        s.style.left=Math.random()*100+'vw'; s.style.top=Math.random()*100+'vh';
         s.style.setProperty('--duration',(Math.random()*3+2)+'s');
         s.style.animationDelay=Math.random()*5+'s';
-        container.appendChild(s);
+        c.appendChild(s);
     }
 }
+
 function createConfetti(){
-    const container = document.getElementById('confetti-container');
-    container.innerHTML = ''; // Limpiar existentes
+    const c=document.getElementById('confetti-container');
     const colors=['#ff69b4','#ff1493','#ffffff','#ffd700','#ff85c1']; 
     for(let i=0;i<60;i++){
         const d=document.createElement('div');
         d.className='confetti';
-        d.style.left=Math.random()*100+'%'; // Cambiado a % para mejor responsividad
+        d.style.left=Math.random()*100+'vw';
         d.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
         d.style.animationDuration=(Math.random()*3+2)+'s';
-        d.style.animationDelay=Math.random()*2+'s'; // Añadido delay aleatorio
-        container.appendChild(d);
+        c.appendChild(d);
     }
 }
+
 function createHearts(){
-    const container = document.getElementById('hearts-container');
-    container.innerHTML = ''; // Limpiar existentes
+    const c=document.getElementById('hearts-container');
     for(let i=0;i<8;i++){
         const h=document.createElement('div');
         h.className='heart';
         h.innerHTML="❤";
-        h.style.left=Math.random()*100+'%'; // Cambiado a % para mejor responsividad
+        h.style.left=Math.random()*100+'vw';
         h.style.animationDuration=(Math.random()*6+6)+'s';
         h.style.animationDelay=Math.random()*3+'s';
-        container.appendChild(h);
+        c.appendChild(h);
     }
 }
 
-// Prevenir scroll cuando la carta está abierta
 document.addEventListener('touchmove', function(e) {
     const carta = document.getElementById('carta');
     if (carta.classList.contains('deploy')) {
-        e.preventDefault();
+        e.stopPropagation();
     }
 }, { passive: false });
 </script>
 </body>
-</html>
+</html> 
+
 
 
